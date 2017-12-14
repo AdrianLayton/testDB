@@ -4,6 +4,7 @@ const AWS = require("aws-sdk");
 
 const app = express();
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -18,7 +19,7 @@ var table = "testDb";
 
 
 app.get('/', (req,res) => {
-	res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + 'index.html');
 })
 
 app.post('/', (req,res) => {

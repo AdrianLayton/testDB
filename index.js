@@ -24,8 +24,7 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 
 AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack); // credentials not loaded
-  else console.log(
-  	"Access Key:", AWS.config.credentials.accessKeyId);
+  else console.log("Access Key:" +  AWS.config.credentials.accessKeyId);
 })
 
 var table = "testDb";

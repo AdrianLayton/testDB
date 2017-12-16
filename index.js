@@ -14,6 +14,12 @@ AWS.config.update({
 });
 
 var docClient = new AWS.DynamoDB.DocumentClient();
+var keyId = new AWS.MetadataService.request('latest/meta-data/iam/security-credentials/ServerDbCrud', function(err,data) {
+	if (err) {
+		console.error("Unable to get MetadataService:", JSON.stringify(err, null, 2));
+	} else {
+		console.log("MetadataService:", JSON.stringify(data, null, 2));
+})
 
 // let assumeRoleResult = AssumeRole(role-arn);
 // let tempCredentials = new SessionAWSCredentials(

@@ -13,37 +13,24 @@ AWS.config.update({
   endpoint: "arn:aws:dynamodb:us-east-1:704381840790:table/testDB"
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
-var keyId = new AWS.MetadataService.request('latest/meta-data/iam/security-credentials/ServerDbCrud', function(err,data) {
-	if (err) {
-		console.error("Unable to get MetadataService:", JSON.stringify(err, null, 2));
-	} else {
-		console.log("MetadataService:", JSON.stringify(data, null, 2));
-})
+let docClient = new AWS.DynamoDB.DocumentClient();
 
-// let assumeRoleResult = AssumeRole(role-arn);
-// let tempCredentials = new SessionAWSCredentials(
-//    assumeRoleResult.AccessKeyId, 
-//    assumeRoleResult.SecretAccessKey, 
-//    assumeRoleResult.SessionToken);
-// s3Request = CreateAmazonS3Client(tempCredentials);
+let table = "testDb";
+
 
 AWS.config.getCredentials(function(err) {
-  if (err) console.log(err.stack); // credentials not loaded
-  else console.log("Access Key:" +  AWS.config.credentials.accessKeyId);
-})
-
-var table = "testDb";
-
+  if (err) console.log(err.stack); 
+  else console.log("Access Key and SecretAccessKey Obtained";
+});
 
 app.get('/', (req,res) => {
 	res.sendFile(__dirname + 'index.html');
 })
 
 app.post('/', (req,res) => {
-	var name = req.body.name;
-	var email = req.body.email;
-	var params = {
+	let name = req.body.name;
+	let email = req.body.email;
+	let params = {
 		TableName:table,
 		Item:{	
 			"email": email,
@@ -62,7 +49,20 @@ app.post('/', (req,res) => {
 )
 })
 
-// res.redirect("/");
+
+
 app.listen(3000,() => {
 	console.log('App has started on port 3000')
 });
+
+// let assumeRoleResult = AssumeRole(role-arn);
+// let tempCredentials = new SessionAWSCredentials(
+//    assumeRoleResult.AccessKeyId, 
+//    assumeRoleResult.SecretAccessKey, 
+//    assumeRoleResult.SessionToken);
+// s3Request = CreateAmazonS3Client(tempCredentials);
+
+// AWS.config.getCredentials(function(err) {
+//   if (err) console.log(err.stack); // credentials not loaded
+//   else console.log("Access Key:" +  AWS.config.credentials.accessKeyId);
+// })

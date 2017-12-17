@@ -20,7 +20,7 @@ let table = "testDb";
 
 AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack); 
-  else console.log("Access Key and SecretAccessKey Obtained";
+  else console.log("Access Key and SecretAccessKey Obtained");
 });
 
 app.get('/', (req,res) => {

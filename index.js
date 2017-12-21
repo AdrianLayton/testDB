@@ -8,9 +8,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-AWS.config.update({
+AWS.config.dynamodb({
   region: "us-east-1",
-  endpoint: "arn:aws:dynamodb:us-east-1:704381840790:table/testDB"
+  endpoint: "dynamodb.us-east-1.amazonaws.com"
 });
 
 let docClient = new AWS.DynamoDB.DocumentClient();
@@ -24,7 +24,7 @@ AWS.config.getCredentials(function(err) {
 });
 
 app.get('/', (req,res) => {
-	res.sendFile(__dirname + 'index.html');
+	res.sendFile(__dirname + '/index.html');
 })
 
 app.post('/', (req,res) => {
@@ -44,9 +44,8 @@ app.post('/', (req,res) => {
 	        console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
 	    } else {
 	        console.log("Added item:", JSON.stringify(data, null, 2));
-}
-}
-)
+		}
+})
 })
 
 

@@ -1,3 +1,5 @@
+// ******** PACKAGES ********
+
 const express = require ('express');
 const bodyParser = require('body-parser');
 const AWS = require("aws-sdk");
@@ -8,20 +10,28 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-AWS.config.dynamodb({
-  region: "us-east-1",
-  endpoint: "dynamodb.us-east-1.amazonaws.com"
+
+// ******** AWS STUFF ********
+AWS.config({
+	region: "us-east-1"
 });
+AWS.config.dynamodb({
+endpoint: "dynamodb.us-east-1.amazonaws.com"
+})
+
+
 
 let docClient = new AWS.DynamoDB.DocumentClient();
 
 let table = "testDb";
 
 
-AWS.config.getCredentials(function(err) {
+let myCredential = AWS.config.getCredentials(function(err) {
   if (err) console.log(err.stack); 
   else console.log("Access Key and SecretAccessKey Obtained");
 });
+  
+// ******** ROUTE PARAMETERS ********
 
 app.get('/', (req,res) => {
 	res.sendFile(__dirname + '/index.html');
@@ -48,20 +58,10 @@ app.post('/', (req,res) => {
 })
 })
 
-
+function testPost(argument) {
+	// body...
+}
 
 app.listen(3000,() => {
 	console.log('App has started on port 3000')
 });
-
-// let assumeRoleResult = AssumeRole(role-arn);
-// let tempCredentials = new SessionAWSCredentials(
-//    assumeRoleResult.AccessKeyId, 
-//    assumeRoleResult.SecretAccessKey, 
-//    assumeRoleResult.SessionToken);
-// s3Request = CreateAmazonS3Client(tempCredentials);
-
-// AWS.config.getCredentials(function(err) {
-//   if (err) console.log(err.stack); // credentials not loaded
-//   else console.log("Access Key:" +  AWS.config.credentials.accessKeyId);
-// })

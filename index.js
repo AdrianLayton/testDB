@@ -16,7 +16,7 @@ AWS.config({
 	region: "us-east-1"
 });
 AWS.config.dynamodb({
-endpoint: "dynamodb.us-east-1.amazonaws.com"
+	endpoint: "dynamodb.us-east-1.amazonaws.com"
 })
 
 
